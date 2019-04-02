@@ -553,11 +553,10 @@ class WNetTensorflow(object):
                 total_test_loss = 0.0
                 total_batch = params.runtime_params.NUM_ITERATIONS
                 for i in range(1,params.runtime_params.NUM_ITERATIONS):
-                    train_x = get_batches_fn_random(params.runtime_params.BATCH_SIZE,
+                    train_x = fast_batch(params.runtime_params.BATCH_SIZE,
                                                     datatopulltrain,
                                                     params,
                                                     varsM,
-                                                    i,
                                                     'Train')
 
                     op2,train_loss = session.run([self.training_step_dec,self.loss_decf],
