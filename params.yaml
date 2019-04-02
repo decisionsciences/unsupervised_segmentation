@@ -1,0 +1,75 @@
+
+image_params:
+    # ORIG
+    ORIG_IMAGE_X: 48 #47
+    ORIG_IMAGE_Y: 336 #117
+    ORIG_IMAGE_Z: 64 #52
+
+    # CROP OR PAD WHAT I WANT THE IMAGE TO BE
+    CROP_PAD_IMAGE_X: 48 #24 #48
+    CROP_PAD_IMAGE_Y: 336 #48 #112
+    CROP_PAD_IMAGE_Z: 64 #24 #48
+    ONE_MATERIAL_AND_AIR: 'False' # 'False for 1 id per pallette, True for material vs Air
+
+    # FOLD BLOCK
+    ## FOLD SIZE
+    #NUM_FOLDS_X: 1
+    #NUM_FOLDS_Y: 4
+    #NUM_FOLDS_Z: 2
+
+    ## FOLD OVERLAP
+    NUM_VOXEL_OVERLAP_X: 0
+    NUM_VOXEL_OVERLAP_Y: 3
+    NUM_VOXEL_OVERLAP_Z: 0
+
+    # AXIS ORDERING
+    DIMENSION_X: 2
+    DIMENSION_Y: 1
+    DIMENSION_Z: 0
+
+    CONTAINER_XMIN: 255.0651
+    CONTAINER_XMAX: 490.0651
+    CONTAINER_YMIN: 282.328
+    CONTAINER_YMAX: 867.328
+    CONTAINER_ZMIN: 300
+    CONTAINER_ZMAX: 560
+
+    NORMALIZATION : 'NORMCENTER' #'NORMCENTER', 'STAND', 'CENTER'
+
+dataset_params:
+    TRAINING_RUNS :  111
+    TEST_RUNS :  153
+
+runtime_params:
+    N_EPOCHS :  50 #this needs to be int
+    BATCH_SIZE : 6 #this needs to be int
+    MODEL_PATH : 'Models/UNSupAWS_Nogales_clean' # SupFull_CF_v1 UNSupFull_CF_v1
+    NUM_ITERATIONS : 60
+    SEC_CUTOFF : 300
+    SAMPLE_PER_RUN_TRAIN : 500 
+    SAMPLE_PER_RUN_TEST : 300
+    VARIABLES : ['SadEMScatDensity','ScatterStopDensity','TwoSixScatDensity', 'MikesFOM', 'StoppedThroughRatio', 'PoCARate']
+# 'SadEMScatDensity','ScatterStopDensity','TwoSixScatDensity' ____MeanDoCA,MeanTheta, MikesFOM,Mu,NumStoppedTracks,PoCARate,PoCAScat,SmoothedNumPoCAs,StoppedMean,StoppedThroughRatio' 'GeoMeanFractionalScattering' FOM FOMFrac, GeoMeanPThetaSquared, GeoMeanTheta
+graph_params:
+    N_CLASSES : 5
+    LAYER_1 : 8
+    LAYER_2 : 16
+    LAYER_3 : 32
+    LAYER_4 : 64 # 64 on 7 OOM
+    KERNEL1 : [3,3,3]
+    KERNEL2 : [3,3,3]
+
+# 64x2 128x2
+#left
+#'FOM,FOMFrac,FracMu,FracSigma,GeoMeanFractionalScattering,GeoMeanPThetaSquared,GeoMeanTheta,LogPTheta,LogPThetaSquared,MeanDoCA,MeanFractionalScattering,MeanTheta', MikesFOM,Mu,NumStoppedTracks,PoCALogScat,PoCARate,PoCAScat,ScatteringRatio,Sigma,SmoothedNumPoCAs,StoppedFracP,StoppedMean,StoppedMeanP,StoppedThroughRatio,box_mean,box_p25, box_p50,box_p75,box_p95,box_std,dist_1_2,dist_1_3,dist_2_3,n_1sigma,n_2sigma,n_3sigma,sum_max_1_2,sum_max_1_3,sum_max_1_5,sum_max_2_2,sum_max_2_3,sum_max_2_5, sum_max_3_2,sum_max_3_3,sum_max_3_5,value_max_1,value_max_2,value_max_3,x_max_1,x_max_2,x_max_3,y_max_1,y_max_2,y_max_3,z_max_1,z_max_2,z_max_3'
+#abbreviated code
+# FOM   FOMF    FracM    FracS     GMF                            GMPT              GMT          LPT         LPTS           MDCA          MFS                  MT        MF            NST               PCALS     PCAR     PCA
+#tried
+#'SmoothedNumPoCAs'
+#python TFSemSegm_WNet_ContrabandFeatures_AnnAsFeature_v5.py --yaml-path params_Aberdeen_v9.yaml
+#python TFMaterial_Supervised_ContrabandFeatures_v4.py --yaml-path params_Aberdeen_v9.yaml
+#python TFSemSegm_WNet_MLEM_Finalized_v1.py --yaml-path params_Aberdeen_v9.yaml
+#python TFSemSegm_WNet_MLEM_Nogales_v2.py --yaml-path params_Aberdeen_v9.yaml
+#python grid_to_vtp.py --input-path scene_128.orig.csv --output-path scene_125test.vtp
+
+
